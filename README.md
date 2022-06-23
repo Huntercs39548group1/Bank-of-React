@@ -1,3 +1,16 @@
+# Bank Of React
+This repository is the website created by group Progress for Assignment 2 - Bank of React.  
+Team members: 
+- Jinyi Tan - remit233
+- Shi Wei Zheng - dive0
+- Sergey Kisselev - skissele
+- Junior Tenezaca - TJunior1323
+
+
+# ======Exmaple and instruction below=======
+
+- ''
+- ''
 # bank-of-react-example-code-gh-pages
 This repository contains a React application example on how to implement client-side routing with React Router and its components including Route, Router, Switch, Link, and Redirect.
 
