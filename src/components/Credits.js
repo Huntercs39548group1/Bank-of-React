@@ -2,15 +2,26 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
+
+
 const Credits = (props) => {
 	let creditsView = () => {
     // console.log(props.creditData);
     const credits = props.creditData;
     return credits.map((credit) => {
       let date = credit.date.slice(0,10);
-      return <li key={credit.id}>{credit.amount} {credit.description} {date}</li>
+      return <li key={credit.id}>{date} {credit.description} {credit.amount} </li>
     }) 
   }
+  // let handleChange = (e) =>{
+  //   const updateBalance = {...this.credit.amount}
+  //   this.setState({user: updateBalance})
+  // }
+  // let handleSubmit = (e) =>{
+  //   e.preventDefault()
+  //   const newBalance = {...this.state.Credits}
+  //   newBalance.credits = updateBalance
+  // }
 
   return (
     <div>
@@ -18,8 +29,15 @@ const Credits = (props) => {
 
       {creditsView()}
       
-      <Link to="/">Return to Home</Link>
+      <input type="credits" name="credits" />
+      <button>Add credit</button>
+
+    <div>      
+    <Link to="/">Return to Home</Link>
     </div>
+
+    </div>
+    
   )
 }
 
