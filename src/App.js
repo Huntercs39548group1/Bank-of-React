@@ -69,6 +69,7 @@ class App extends Component {
     );
     const LogInComponent = () => (<LogIn user={this.state.currentUser} mockLogIn={this.mockLogIn} />);  // Pass props to "LogIn" component
     const CreditsComponent= () => (<Credits creditData={this.state.creditData} accountBalance={this.state.accountBalance}/>);
+    const DebitsComponent= () => (<Credits debitData={this.state.debittData}/>);
 
     // Important: Include the "basename" in Router, which is needed for deploying the React app to GitHub Pages
     return (
