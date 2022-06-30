@@ -25,18 +25,24 @@ const Credits = (props) => {
 
   return (
     <div>
-      <h1>Credits</h1>
+    <h1>Credits</h1>
+    {creditsView()}
 
-      {creditsView()}
-      
-      <input type="credits" name="credits" />
-      <button>Add credit</button>
-
-    <div>      
-    <Link to="/">Return to Home</Link>
+    <div>Description:
+    <input type="description" name="description" />
     </div>
 
+    <div>Credit:
+    <input type="credits" name="credits" />
     </div>
+
+    <button>Add credit</button>
+
+  <div>      
+  <Link to="/">Return to Home</Link>
+  </div>
+
+  </div>
     
   )
 }
