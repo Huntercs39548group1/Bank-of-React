@@ -2,6 +2,7 @@
 
 import React, {Component} from 'react';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
+import axios from 'axios';
 
 // Import other components
 import Home from './components/Home';
@@ -17,7 +18,8 @@ class App extends Component {
       currentUser: {
         userName: 'Joe Smith',
         memberSince: '11/22/99',
-      }
+      },
+      creditData: []
     }
   }
 
@@ -28,6 +30,24 @@ class App extends Component {
     this.setState({currentUser: newUser})
   }
 
+  //Make API call to get credit data
+  async  componentDidMount() {
+    let linkToCreditData = 'https://moj-api.herokuapp.com/credits';
+
+    try {
+      let responseForCredit = await axios.get(linkToCreditData);
+      console.log(responseForCredit);
+      for (let i = 0; i < responseForCredit.data.length; i++) {
+        this.state.creditData.push(responseForCredit.data[i]);
+      }
+    } catch (error) {
+      if (error.responseForCredit) {
+        console.log(error.responseForCredit.data);
+        console.log(error.responseForCredit.status);
+      }
+    }
+  }
+
   // Create Routes and React elements to be rendered using React components
   render() {  
     // Create React elements
@@ -35,7 +55,8 @@ class App extends Component {
     const UserProfileComponent = () => (
       <UserProfile userName={this.state.currentUser.userName} memberSince={this.state.currentUser.memberSince}  />
     );
-    const LogInComponent = () => (<LogIn user={this.state.currentUser} mockLogIn={this.mockLogIn} />)  // Pass props to "LogIn" component
+    const LogInComponent = () => (<LogIn user={this.state.currentUser} mockLogIn={this.mockLogIn} />);  // Pass props to "LogIn" component
+    const CreditsComponent= () => (<Credits creditData={this.state.creditData} />);
 
     // Important: Include the "basename" in Router, which is needed for deploying the React app to GitHub Pages
     return (
@@ -44,7 +65,7 @@ class App extends Component {
           <Route exact path="/" render={HomeComponent}/>
           <Route exact path="/userProfile" render={UserProfileComponent}/>
           <Route exact path="/login" render={LogInComponent}/>
-          <Route exact path="/credits" render={Credits}/>
+          <Route exact path="/credits" render={CreditsComponent}/>
         </div>
       </Router>
     );
