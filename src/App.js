@@ -73,7 +73,7 @@ class App extends Component {
        accountBalance={this.state.accountBalance} 
        setState={(value) => this.setState({ ...this.state, value })}/>);
 
-    const DebitsComponent= () => (<Credits debitData={this.state.debittData}/>);
+    const DebitsComponent= () => (<Debits debitData={this.state.debitData} accountBalance={this.state.accountBalance}/>);
 
     // Important: Include the "basename" in Router, which is needed for deploying the React app to GitHub Pages
     return (
