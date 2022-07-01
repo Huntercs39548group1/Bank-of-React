@@ -1,6 +1,7 @@
 // src/components/Debits.js
 import React from 'react';
 import {Link} from 'react-router-dom';
+import AccountBalance from './AccountBalance';
 
 const Debits = (props) => {
   // Create the list of Debit items
@@ -23,9 +24,12 @@ const Debits = (props) => {
         <input type="number" name="amount" />
         <button type="submit">Add Debit</button>
       </form>
+      <br></br>
       <div>      
         <Link to="/">Return to Home</Link>
       </div>
+      <br></br>
+      <AccountBalance accountBalance={props.accountBalance} />
     </div>
   )
 }
