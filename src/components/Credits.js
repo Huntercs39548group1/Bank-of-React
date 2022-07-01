@@ -63,34 +63,36 @@ const Credits = (props) => {
    }) 
 
   }
-  // let handleChange = (e) =>{
-  //   const updateBalance = {...this.credit.amount}
-  //   this.setState({user: updateBalance})
-  // }
-  // let handleSubmit = (e) =>{
-  //   e.preventDefault()
-  //   const newBalance = {...this.state.Credits}
-  //   newBalance.credits = updateBalance
-  // }
 
+  let handleSubmit = (e) =>{
+    e.preventDefault()
+    
+  }
+    console.log(props.creditData);
   return (
     <div>
       <h1>Credits</h1>
       {creditsView()}
+
+      <form onSubmit={handleSubmit} >
       <div>Description:
-      <input type="description" name="description" />
+      <input type="description" name="description"  />
       </div>
 
       <div>Credit:
-      <input type="credits" name="credits" />
+      <input type="credits" name="credits"         
+      onChange={(e) => props.setState(e.target.value)}
+      />
       </div>
 
       <button>Add credit</button>
+      </form>
 
     <div>      
     <Link to="/">Return to Home</Link>
     </div>
-    {/* <AccountBalance accountBalance={this.props.accountBalance}/> */}
+
+    <AccountBalance accountBalance={props.accountBalance}/>
     </div>
     
   )
