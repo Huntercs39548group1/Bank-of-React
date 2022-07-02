@@ -40,7 +40,7 @@ class App extends Component {
     try {
       let responseForCredit = await axios.get(linkToCreditData);
       let responseForDebit = await axios.get(linkToDebitData);
-      console.log(responseForCredit);     
+      console.log(responseForCredit);
       for (let i = 0; i < responseForCredit.data.length; i++) {
         this.state.creditData.push(responseForCredit.data[i]);
       }
