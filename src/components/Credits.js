@@ -1,91 +1,81 @@
 // src/components/Credits.js
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import AccountBalance from "./AccountBalance";
+import React, { useState} from 'react';
+import {Link} from 'react-router-dom';
+import AccountBalance from './AccountBalance';
+import { v1 as uuidv1 } from 'uuid';
+import { isArray } from 'lodash';
+import moment from 'moment';
 
-const Credits = (props) => {
-    // const [creditTotal, setCreditTotal] = useState(props.creditData);
-    // const [description, changeDescription] = useState('');
-    // const [creditAmount, changecreditAmount] = useState();
-    let description;
-    let creditAmount;
 
-    let creditsView = () => {
-        const credits = props.creditData;
-        return credits.map((credit) => {
-            let date = credit.date.slice(0, 10);
-            return (
-                <li key={credit.id}>
-                    {" "}
-                    {credit.amount} {credit.description} {date}{" "}
-                </li>
-            );
-        });
-    };
-    //show balance
+const Credits = ({creditData, accountBalance, setState}) => {
+  const [totalCredit, setTotalCredit] = useState([...creditData]);
+  const [description, setDescription] = useState('');
+  const [creditAmount, setCreditAmount] = useState(0);
+	console.log("totalCredit", totalCredit)
+  let creditsView = () => {
+    if (isArray(totalCredit)) {
+      return totalCredit.map((credit) => {
+        console.log(credit);
+        return <li key={credit.id}> {credit.amount} {credit.description} {moment(credit.date).format('YYYY-MM-DD')}</li>
+        console.log(credit);
+      }) 
+    }
+  }
 
-    let handleSubmit = (e) => {
-        e.preventDefault();
+  // let showBalance = () =>{
+  
+  //  // console.log(props.creditData);
+  //  const credits = creditData;
+  //  let total = 0;
+  //  return credits.map((credit) => {
+  //   total = total + credit.amount;
+  //   return <div> {total}</div>
+  //  }) 
 
-        const newSet = {
-            id: new Date(),
-            description: description,
-            amount: creditAmount,
-            date: new Date(),
-        };
-        props.creditData.push(newSet);
-        console.log(props.creditData);
-        // setCreditTotal(creditTotal.push(newSet));
-        // console.log(creditAmount);
-    };
+  // }
 
-    let changeDescription = (e) => {
-        description = e.target.value;
-    };
+  //Once Add Credit clicked send description and creditAmount to 
+  //Array. 
+  let handleSubmit = (e) =>{
+    e.preventDefault();
+    const newObj = {
+      id: uuidv1(),
+      description: description,
+      amount: creditAmount,
+      date: moment(new Date()).format('YYYY-MM-DD'),
+    }
+    setTotalCredit([...totalCredit, newObj])
+    setState(totalCredit);
+  }
 
-    let changecreditAmount = (e) => {
-        creditAmount = e.target.value;
-    };
+  return (
+    <div>
+      <h1>Credits</h1>
+      {creditsView()}
 
-    // useEffect(() => {
-    //   props.setState({creditData: [...props.creditData, creditTotal] })
-    // },[ creditTotal, props ])
+      <form onSubmit={handleSubmit} >
+      <div>Description:
+      <input type="description" name="description" value={description} onChange={(event) =>setDescription(event.target.value)} />
+      </div>
 
-    // console.log(props.creditData);
-    return (
-        <div>
-            <h1>Credits</h1>
-            {creditsView()}
+      <div>Credit:
+      <input type="credits" name="credits"
+        value={creditAmount}     
+        onChange={(e) => setCreditAmount(e.target.value)}
+      />
+      </div>
 
-            {/*Form setted up*/}
-            <form onSubmit={handleSubmit}>
-                <div>
-                    Description:
-                    <input
-                        type="description"
-                        name="description"
-                        onChange={changeDescription}
-                    />
-                </div>
+      <button>Add credit</button>
+      </form>
 
-                <div>
-                    Credit:
-                    <input
-                        type="credits"
-                        name="amount"
-                        onChange={changecreditAmount}
-                    />
-                </div>
-                <input type="submit" value="Add Credit" />
-            </form>
+    <div>      
+    <Link to="/">Return to Home</Link>
+    </div>
 
-            <div>
-                <Link to="/">Return to Home</Link>
-            </div>
-
-            <AccountBalance accountBalance={props.accountBalance} />
-        </div>
-    );
-};
+    <AccountBalance accountBalance={accountBalance}/>
+    </div>
+    
+  )
+}
 
 export default Credits;

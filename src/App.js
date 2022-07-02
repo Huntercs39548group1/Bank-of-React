@@ -32,6 +32,12 @@ class App extends Component {
     this.setState({currentUser: newUser})
   }
 
+  sendCredit = (newCredit)=> {
+  
+    this.setState({...this.state.creditData, newCredit})
+
+  }
+
   //Make API call to get credit data
   async  componentDidMount() {
     let linkToCreditData = 'https://moj-api.herokuapp.com/credits';
@@ -71,7 +77,7 @@ class App extends Component {
     
     const CreditsComponent= () => (<Credits creditData={this.state.creditData}
        accountBalance={this.state.accountBalance} 
-       setState={(value) => this.setState({ ...this.state, value })}/>);
+       setState={this.sendCredit}/>);
 
     const DebitsComponent= () => (<Debits debitData={this.state.debitData} accountBalance={this.state.accountBalance}/>);
 
