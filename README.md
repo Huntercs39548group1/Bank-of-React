@@ -1,5 +1,5 @@
 # Bank Of React
-This repository is the website created by group Progress for Assignment 2 - Bank of React.  
+This repository is the website created by group Progress for Assignment 4 - Bank of React.  
 Team members: 
 - Jinyi Tan - remit233
 - Shi Wei Zheng - dive0
