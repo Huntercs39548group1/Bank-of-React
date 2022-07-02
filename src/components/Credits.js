@@ -1,87 +1,64 @@
 // src/components/Credits.js
-import React from 'react';
+import React, { useState, useEffect }from 'react';
 import {Link} from 'react-router-dom';
 import AccountBalance from './AccountBalance';
 
 
-// class addCredit extends Comment{
-//   constructor(){
-//     super()
-//     this.state = {
-//       user: {
-//         creditBalance: ''
-//       },
-//       redirect: false
-//     }
-//   }
-//   handleChange = (e) => {
-//     const updateBalance = {...this.state.user}
-//     const inputBalance = e.target.value
-//     this.setState({user: updateBalance})
-//   }
 
-//   handleSubmit = (e) => {
-//     e.preventDefault()
-//     this.props.mockLogin(this.state.user)
-//     this.setState({redirect: true})
-//   }
-//   render(){
-//     return(
-//       <div>
-//       <h1>Credits</h1>
-
-//       <from onSubmit={this.handleSubmit}>
-//         <div>
-//           <label htmlFor="creditBalance">Enter credit</label>
-//           <input type="creditBalance" name ="creditBalance"/>
-//         </div>
-//         <button>Add credit</button>
-//       </from>
-//       </div>
-//     )
-//   }
-// }
 
 const Credits = (props) => {
+  const [creditTotal, setCreditTotal] = useState(props.creditData);
+  const [description, changeDescription] = useState('');
+  const [creditAmount, changecreditAmount] = useState();
+
 	let creditsView = () => {
     // console.log(props.creditData);
     const credits = props.creditData;
     return credits.map((credit) => {
       let date = credit.date.slice(0,10);
-      return <li key={credit.id}>{date} {credit.description} {credit.amount} </li>
+      return <li key={credit.id}> {credit.amount} {credit.description} {date} </li>
     }) 
   }
   //show balance
-  let showBalance = () =>{
-    
-   // console.log(props.creditData);
-   const credits = props.creditData;
-   let total = 0;
-   return credits.map((credit) => {
-    total = total + credit.amount;
-    return <div > {total}</div>
-   }) 
-
-  }
 
   let handleSubmit = (e) =>{
     e.preventDefault()
-    
-  }
+
+    const newSet = {
+      id: new Date(),
+      description: description,
+      amount: creditAmount,
+      date: new Date(),
+    }
+
+    setCreditTotal(creditTotal?.push(newSet))
+    // console.log(creditAmount);
+
+  } 
+  
+
+    useEffect(() => {
+      props.setState({creditData: [...props.creditData, creditTotal] })
+    },[ creditTotal, props ])
+
+
     console.log(props.creditData);
   return (
     <div>
       <h1>Credits</h1>
       {creditsView()}
 
+      {/*Form setted up*/}
       <form onSubmit={handleSubmit} >
       <div>Description:
-      <input type="description" name="description"  />
+      <input type="description" name="description"  
+      onChange={(e) => changeDescription(e.target.value)} value = {description}
+      />
       </div>
 
       <div>Credit:
-      <input type="credits" name="credits"         
-      onChange={(e) => props.setState(e.target.value)}
+      <input type="credits" name="amount"         
+      onChange={(e) => changecreditAmount(e.target.value)} value = {creditAmount}
       />
       </div>
 
