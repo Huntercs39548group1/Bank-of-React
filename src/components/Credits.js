@@ -15,9 +15,9 @@ const Credits = ({creditData, accountBalance, setState}) => {
   let creditsView = () => {
     if (isArray(totalCredit)) {
       return totalCredit.map((credit) => {
-        // console.log(credit);
+        console.log(credit);
         return <li key={credit.id}> {credit.amount} {credit.description} {moment(credit.date).format('YYYY-MM-DD')}</li>
-        // console.log(credit);
+        console.log(credit);
       }) 
     }
   }
