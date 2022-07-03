@@ -40,19 +40,35 @@ const Debits = ({debitData, accountBalance, setState}) => {
       <h1>Debits</h1>
       {debitsView()}
 
-      <form onSubmit={handleSubmit}>
-        <div>Description:</div>
-        <input type="description" name="description" value={description}onChange={(event) =>setDescription(event.target.value)}/>
-        <div>Amount:</div>
-        <input type="debits" name="debits" value={debitAmount} onChange={(e) => setDebitAmount(e.target.value)}/>
-        <button type="submit">Add Debit</button>
-      </form>
-      <br></br>
-      <div>      
-        <Link to="/">Return to Home</Link>
+      <form onSubmit={handleSubmit} >
+      <div>Description:
+      <input 
+      type="description" 
+      name="description" 
+      required = "required"
+      placeholder= "Enter a description"
+      value={description} 
+      onChange={(event) =>setDescription(event.target.value)} 
+      />
       </div>
-      <br></br>
-      <AccountBalance accountBalance={accountBalance} />
+
+      <div>Debit:
+      <input 
+      type="debits" 
+      name="debits"
+      value={debitAmount}     
+      onChange={(e) => setDebitAmount(e.target.value)}
+      />
+      </div>
+
+      <button>Add debit</button>
+      </form>
+
+    <div>      
+    <Link to="/">Return to Home</Link>
+    </div>
+
+    <AccountBalance accountBalance={accountBalance} />
     </div>
   )
 }
