@@ -38,6 +38,12 @@ class App extends Component {
 
   }
 
+  sendDebit = (newDebit)=> {
+  
+    this.setState({...this.state.debitData, newDebit})
+
+  }
+
   //Make API call to get credit data
   async  componentDidMount() {
     let linkToCreditData = 'https://moj-api.herokuapp.com/credits';
@@ -79,8 +85,9 @@ class App extends Component {
        accountBalance={this.state.accountBalance} 
        setState={this.sendCredit}/>);
 
-    const DebitsComponent= () => (<Debits debitData={this.state.debitData} accountBalance={this.state.accountBalance}/>);
-
+       const DebitsComponent= () => (<Debits debitData={this.state.debitData} 
+        accountBalance={this.state.accountBalance}
+        setState={this.sendDebit}/>);
     // Important: Include the "basename" in Router, which is needed for deploying the React app to GitHub Pages
     return (
       <Router basename="/BANK-OF-REACT/">
