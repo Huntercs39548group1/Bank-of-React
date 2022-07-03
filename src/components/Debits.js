@@ -1,5 +1,5 @@
 // src/components/Debits.js
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import AccountBalance from './AccountBalance';
 import { v1 as uuidv1 } from 'uuid';
@@ -31,8 +31,13 @@ const Debits = ({debitData, accountBalance, setState}) => {
       date: moment(new Date()).format('YYYY-MM-DD'),
     }
     setTotalDebit([...totalDebit, newObj])
-    setState(totalDebit);
+    console.log({debitAmount,description,totalDebit})
   }
+
+  useEffect(() => {
+    console.log({totalDebit})
+    setState(totalDebit);
+  }, [totalDebit,setState])
   
   // Render the list of Debit items and a form to input new Debit item
   return (

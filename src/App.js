@@ -15,7 +15,7 @@ class App extends Component {
   constructor() {  // Create and initialize state
     super(); 
     this.state = {
-      accountBalance: 1234567.89,
+      accountBalance: 1550.55,
       currentUser: {
         userName: 'Joe Smith',
         memberSince: '11/22/99',
@@ -40,8 +40,17 @@ class App extends Component {
 
   sendDebit = (newDebit)=> {
   
-    this.setState({...this.state.debitData, newDebit})
+    if(newDebit && newDebit.length > 0) {
+      let item = newDebit[newDebit.length - 1]
+      console.log({newDebit})
 
+      this.setState((prevState) => {
+        console.log({prevState})
+        console.log({item})
+        // return {...prevState, accountBalance : Number(item.amount) + prevState.accountBalance}
+        return {prevState, accountBalance : Number(item.amount) + prevState.accountBalance}
+    })
+  }
   }
 
   //Make API call to get credit data
