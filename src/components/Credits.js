@@ -10,7 +10,7 @@ import moment from 'moment';
 const Credits = ({creditData, accountBalance, setState}) => {
   const [totalCredit, setTotalCredit] = useState([...creditData]);
   const [description, setDescription] = useState('');
-  const [creditAmount, setCreditAmount] = useState(0);
+  const [creditAmount, setCreditAmount] = useState('');
 	console.log("totalCredit", totalCredit)
   let creditsView = () => {
     if (isArray(totalCredit)) {
@@ -46,6 +46,13 @@ const Credits = ({creditData, accountBalance, setState}) => {
     }
     setTotalCredit([...totalCredit, newObj])
     setState(totalCredit);
+
+    // Add new credit to array
+    creditData.push(newObj);
+
+    // Clear input fields after submit
+    setDescription('');
+    setCreditAmount('');
   }
 
   return (
