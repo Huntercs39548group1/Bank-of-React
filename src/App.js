@@ -53,7 +53,7 @@ class App extends Component {
                 return {
                     prevState,
                     accountBalance:
-                      prevState.accountBalance - Number(item.amount),
+                    Number(prevState.accountBalance - Number(item.amount)).toFixed(2),
                 };
             });
         }
