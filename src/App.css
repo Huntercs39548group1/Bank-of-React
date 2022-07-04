@@ -36,3 +36,37 @@
     transform: rotate(360deg);
   }
 }
+
+body {
+  background-color: bisque;
+}
+
+h1 {
+  font-size: 50px;
+  color: rgb(55, 92, 78)
+}
+
+#balance {
+  font-weight: bold;
+  font-size: 30px;
+}
+
+#home {
+  font-size: 20px;
+}
+
+li {
+  list-style: none;
+  margin-bottom: 10px;
+}
+
+#content {
+  width: 50%;
+  float: left;
+}
+
+#value {
+  width: 50%;
+  float: right;
+  padding: 100px 0;
+}

@@ -17,3 +17,7 @@ code {
 input, button {
 	margin: 5px;
 }
+
+body {
+  background-color: azure;
+}

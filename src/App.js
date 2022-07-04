@@ -3,6 +3,7 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import axios from "axios";
+import "./App.css";
 
 // Import other components
 import Home from "./components/Home";
@@ -36,7 +37,6 @@ class App extends Component {
     };
 
     sendCredit = (newCredit) => {
-        // this.setState({ ...this.state.creditData, newCredit });
         if (newCredit && newCredit.length > 0) {
             let item = newCredit[newCredit.length - 1];
 
@@ -44,8 +44,8 @@ class App extends Component {
                 // return {...prevState, accountBalance : Number(item.amount) + prevState.accountBalance}
                 return {
                     prevState,
-                    accountBalance: (Number(
-                        prevState.accountBalance) + Number(item.amount)
+                    accountBalance: (
+                        Number(prevState.accountBalance) + Number(item.amount)
                     ).toFixed(2),
                 };
             });
@@ -86,8 +86,11 @@ class App extends Component {
                 this.state.debitData.push(responseForDebit.data[i]);
                 this.state.debitAmount += responseForDebit.data[i].amount;
             }
-            this.setState({accountBalance: (this.state.creditAmount - this.state.debitAmount).toFixed(2)});
-
+            this.setState({
+                accountBalance: (
+                    this.state.creditAmount - this.state.debitAmount
+                ).toFixed(2),
+            });
         } catch (error) {
             if (error.responseForCredit) {
                 console.log(error.responseForCredit.data);
