@@ -23,6 +23,8 @@ class App extends Component {
             },
             creditData: [],
             debitData: [],
+            creditAmount: 0,
+            debitAmount: 0,
         };
     }
 
@@ -33,46 +35,34 @@ class App extends Component {
         this.setState({ currentUser: newUser });
     };
 
-    sendCredit = (newCredit, apiVal) => {
+    sendCredit = (newCredit) => {
         // this.setState({ ...this.state.creditData, newCredit });
-        if (newCredit === undefined) {
-            this.setState(() => {
-              return {
-                accountBalance: apiVal,
-            };
-            });        
-          }
-            else if (newCredit && newCredit.length > 0) {
-                let item = newCredit[newCredit.length - 1];
-    
-                this.setState((prevState) => {
-                    // return {...prevState, accountBalance : Number(item.amount) + prevState.accountBalance}
-                    return {
-                        prevState,
-                        accountBalance:
-                        Number(prevState.accountBalance - Number(item.amount)).toFixed(2),
-                    };
-                });
-            }
+        if (newCredit && newCredit.length > 0) {
+            let item = newCredit[newCredit.length - 1];
+
+            this.setState((prevState) => {
+                // return {...prevState, accountBalance : Number(item.amount) + prevState.accountBalance}
+                return {
+                    prevState,
+                    accountBalance: (Number(
+                        prevState.accountBalance) + Number(item.amount)
+                    ).toFixed(2),
+                };
+            });
+        }
     };
 
-    sendDebit = (newDebit, apiVal) => {
-      if (newDebit === undefined) {
-        this.setState(() => {
-          return {
-            accountBalance: apiVal,
-        };
-        });        
-      }
-        else if (newDebit && newDebit.length > 0) {
+    sendDebit = (newDebit) => {
+        if (newDebit && newDebit.length > 0) {
             let item = newDebit[newDebit.length - 1];
 
             this.setState((prevState) => {
                 // return {...prevState, accountBalance : Number(item.amount) + prevState.accountBalance}
                 return {
                     prevState,
-                    accountBalance:
-                    Number(prevState.accountBalance - Number(item.amount)).toFixed(2),
+                    accountBalance: Number(
+                        prevState.accountBalance - Number(item.amount)
+                    ).toFixed(2),
                 };
             });
         }
@@ -89,11 +79,15 @@ class App extends Component {
             console.log(responseForCredit);
             for (let i = 0; i < responseForCredit.data.length; i++) {
                 this.state.creditData.push(responseForCredit.data[i]);
+                this.state.creditAmount += responseForCredit.data[i].amount;
             }
             console.log(responseForDebit);
             for (let i = 0; i < responseForDebit.data.length; i++) {
                 this.state.debitData.push(responseForDebit.data[i]);
+                this.state.debitAmount += responseForDebit.data[i].amount;
             }
+            this.setState({accountBalance: (this.state.creditAmount - this.state.debitAmount).toFixed(2)});
+
         } catch (error) {
             if (error.responseForCredit) {
                 console.log(error.responseForCredit.data);

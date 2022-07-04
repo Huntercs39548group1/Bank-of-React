@@ -1,5 +1,5 @@
 // src/components/Debits.js
-import React, { useState, useEffect, useRef  } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import AccountBalance from "./AccountBalance";
 import { v1 as uuidv1 } from "uuid";
@@ -11,15 +11,11 @@ const Debits = ({ debitData, accountBalance, setState }) => {
     const [totalDebit, setTotalDebit] = useState([...debitData]);
     const [description, setDescription] = useState("");
     const [debitAmount, setDebitAmount] = useState(0);
-    // const [apibalance, setApiBalance] = useState(0);
-    
+
     let debitsView = () => {
         if (isArray(totalDebit)) {
             return totalDebit.map((debit) => {
-
                 return (
-              // setApiBalance(apibalance + debit.amount),
-
                     <li key={debit.id}>
                         {" "}
                         {debit.amount} {debit.description}{" "}
@@ -29,8 +25,6 @@ const Debits = ({ debitData, accountBalance, setState }) => {
             });
         }
     };
-    // console.log(apibalance);
-    // setState(undefined, apibalance)
 
     //Once Add Debit clicked send description and debitAmount to
     //Array.
@@ -53,8 +47,8 @@ const Debits = ({ debitData, accountBalance, setState }) => {
     useEffect(() => {
         // console.log({ totalDebit });
         if (isFirstRender.current) {
-          isFirstRender.current = false;
-          return; // 👈️ return early if first render
+            isFirstRender.current = false;
+            return; // 👈️ return early if first render
         }
         setState(totalDebit);
     }, [totalDebit, setState]);
@@ -81,7 +75,8 @@ const Debits = ({ debitData, accountBalance, setState }) => {
                 <div>
                     Debit:
                     <input
-                        type="debits"
+                        required="required"
+                        type="number"
                         name="debits"
                         value={debitAmount}
                         onChange={(e) => setDebitAmount(e.target.value)}
