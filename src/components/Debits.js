@@ -33,11 +33,11 @@ const Debits = ({ debitData, accountBalance, setState }) => {
         const newObj = {
             id: uuidv1(),
             description: description,
-            amount: Math.round(( Number(debitAmount) + Number.EPSILON) * 100 ) / 100,
+            amount:
+                Math.round((Number(debitAmount) + Number.EPSILON) * 100) / 100,
             date: moment(new Date()).format("YYYY-MM-DD"),
         };
         setTotalDebit([...totalDebit, newObj]);
-        // console.log({ debitAmount, description, totalDebit });
 
         debitData.push(newObj);
 
@@ -48,10 +48,9 @@ const Debits = ({ debitData, accountBalance, setState }) => {
     const isFirstRender = useRef(true);
 
     useEffect(() => {
-        // console.log({ totalDebit });
         if (isFirstRender.current) {
             isFirstRender.current = false;
-            return; // 👈️ return early if first render
+            return;
         }
         setState(totalDebit);
     }, [totalDebit, setState]);
@@ -60,41 +59,46 @@ const Debits = ({ debitData, accountBalance, setState }) => {
     return (
         <div>
             <h1>Debits</h1>
-            {debitsView()}
+            <div id="balance">
+                <AccountBalance accountBalance={accountBalance} />
+            </div>
 
-            <form onSubmit={handleSubmit}>
-                <div>
-                    Description:
-                    <input
-                        type="description"
-                        name="description"
-                        required="required"
-                        placeholder="Enter a description"
-                        value={description}
-                        onChange={(event) => setDescription(event.target.value)}
-                    />
-                </div>
-
-                <div>
-                    Debit:
-                    <input
-                        required="required"
-                        type="number"
-                        name="debits"
-                        value={debitAmount}
-                        onChange={(e) => setDebitAmount(e.target.value)}
-                    />
-                </div>
-
-                <button>Add debit</button>
-                {/* onClick={() => setState(totalDebit)} */}
-            </form>
-
-            <div>
+            <div id="home">
                 <Link to="/">Return to Home</Link>
             </div>
 
-            <AccountBalance accountBalance={accountBalance} />
+            <div id="content">{debitsView()}</div>
+
+            <div id="value">
+                <form onSubmit={handleSubmit}>
+                    <div>
+                        Description:
+                        <input
+                            type="description"
+                            name="description"
+                            required="required"
+                            placeholder="Enter a description"
+                            value={description}
+                            onChange={(event) =>
+                                setDescription(event.target.value)
+                            }
+                        />
+                    </div>
+
+                    <div>
+                        Debit:
+                        <input
+                            required="required"
+                            type="number"
+                            name="debits"
+                            value={debitAmount}
+                            onChange={(e) => setDebitAmount(e.target.value)}
+                        />
+                    </div>
+
+                    <button>Add debit</button>
+                </form>
+            </div>
         </div>
     );
 };

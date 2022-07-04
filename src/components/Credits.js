@@ -14,7 +14,6 @@ const Credits = ({ creditData, accountBalance, setState }) => {
     let creditsView = () => {
         if (isArray(totalCredit)) {
             return totalCredit.map((credit) => {
-                // console.log(credit);
                 return (
                     <li key={credit.id}>
                         {" "}
@@ -22,7 +21,6 @@ const Credits = ({ creditData, accountBalance, setState }) => {
                         {moment(credit.date).format("YYYY-MM-DD")}
                     </li>
                 );
-                // console.log(credit);
             });
         }
     };
@@ -34,11 +32,11 @@ const Credits = ({ creditData, accountBalance, setState }) => {
         const newObj = {
             id: uuidv1(),
             description: description,
-            amount: Math.round(( Number(creditAmount) + Number.EPSILON) * 100 ) / 100,
+            amount:
+                Math.round((Number(creditAmount) + Number.EPSILON) * 100) / 100,
             date: moment(new Date()).format("YYYY-MM-DD"),
         };
         setTotalCredit([...totalCredit, newObj]);
-        // setState(totalCredit);
 
         // Add new credit to array
         creditData.push(newObj);
@@ -50,50 +48,55 @@ const Credits = ({ creditData, accountBalance, setState }) => {
     const isFirstRender = useRef(true);
 
     useEffect(() => {
-        // console.log({ totalDebit });
         if (isFirstRender.current) {
             isFirstRender.current = false;
-            return; // 👈️ return early if first render
+            return;
         }
         setState(totalCredit);
     }, [totalCredit, setState]);
     return (
         <div>
             <h1>Credits</h1>
-            {creditsView()}
+            <div id="balance">
+                <AccountBalance accountBalance={accountBalance} />
+            </div>
 
-            <form onSubmit={handleSubmit}>
-                <div>
-                    Description:
-                    <input
-                        required="required"
-                        type="description"
-                        name="description"
-                        placeholder="Enter a description"
-                        value={description}
-                        onChange={(event) => setDescription(event.target.value)}
-                    />
-                </div>
-
-                <div>
-                    Credit:
-                    <input
-                        required="required"
-                        type="number"
-                        name="credits"
-                        value={creditAmount}
-                        onChange={(e) => setCreditAmount(e.target.value)}
-                    />
-                </div>
-
-                <button>Add credit</button>
-            </form>
-
-            <div>
+            <div id="home">
                 <Link to="/">Return to Home</Link>
             </div>
 
-            <AccountBalance accountBalance={accountBalance} />
+            <div id="content">{creditsView()}</div>
+
+            <div id="value">
+                <form onSubmit={handleSubmit}>
+                    <div>
+                        Description:
+                        <input
+                            required="required"
+                            type="description"
+                            name="description"
+                            placeholder="Enter a description"
+                            value={description}
+                            onChange={(event) =>
+                                setDescription(event.target.value)
+                            }
+                        />
+                    </div>
+
+                    <div>
+                        Credit:
+                        <input
+                            required="required"
+                            type="number"
+                            name="credits"
+                            value={creditAmount}
+                            onChange={(e) => setCreditAmount(e.target.value)}
+                        />
+                    </div>
+
+                    <button>Add credit</button>
+                </form>
+            </div>
         </div>
     );
 };
