@@ -33,8 +33,27 @@ class App extends Component {
         this.setState({ currentUser: newUser });
     };
 
-    sendCredit = (newCredit) => {
-        this.setState({ ...this.state.creditData, newCredit });
+    sendCredit = (newCredit, apiVal) => {
+        // this.setState({ ...this.state.creditData, newCredit });
+        if (newCredit === undefined) {
+            this.setState(() => {
+              return {
+                accountBalance: apiVal,
+            };
+            });        
+          }
+            else if (newCredit && newCredit.length > 0) {
+                let item = newCredit[newCredit.length - 1];
+    
+                this.setState((prevState) => {
+                    // return {...prevState, accountBalance : Number(item.amount) + prevState.accountBalance}
+                    return {
+                        prevState,
+                        accountBalance:
+                        Number(prevState.accountBalance - Number(item.amount)).toFixed(2),
+                    };
+                });
+            }
     };
 
     sendDebit = (newDebit, apiVal) => {

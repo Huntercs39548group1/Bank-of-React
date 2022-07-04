@@ -1,5 +1,5 @@
 // src/components/Credits.js
-import React, { useState} from 'react';
+import React, { useState,useEffect, useRef,} from 'react';
 import {Link} from 'react-router-dom';
 import AccountBalance from './AccountBalance';
 import { v1 as uuidv1 } from 'uuid';
@@ -45,7 +45,7 @@ const Credits = ({creditData, accountBalance, setState}) => {
       date: moment(new Date()).format('YYYY-MM-DD'),
     }
     setTotalCredit([...totalCredit, newObj])
-    setState(totalCredit);
+    // setState(totalCredit);
 
     // Add new credit to array
     creditData.push(newObj);
@@ -54,7 +54,16 @@ const Credits = ({creditData, accountBalance, setState}) => {
     setDescription('');
     setCreditAmount('');
   }
+  const isFirstRender = useRef(true);
 
+  useEffect(() => {
+      // console.log({ totalDebit });
+      if (isFirstRender.current) {
+        isFirstRender.current = false;
+        return; // 👈️ return early if first render
+      }
+      setState(totalCredit);
+  }, [totalCredit, setState]);
   return (
     <div>
       <h1>Credits</h1>
