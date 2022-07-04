@@ -10,7 +10,7 @@ const Debits = ({ debitData, accountBalance, setState }) => {
     // Create the list of Debit items
     const [totalDebit, setTotalDebit] = useState([...debitData]);
     const [description, setDescription] = useState("");
-    const [debitAmount, setDebitAmount] = useState(0);
+    const [debitAmount, setDebitAmount] = useState("");
 
     let debitsView = () => {
         if (isArray(totalDebit)) {
@@ -33,13 +33,16 @@ const Debits = ({ debitData, accountBalance, setState }) => {
         const newObj = {
             id: uuidv1(),
             description: description,
-            amount: debitAmount,
+            amount: Math.round(( Number(debitAmount) + Number.EPSILON) * 100 ) / 100,
             date: moment(new Date()).format("YYYY-MM-DD"),
         };
         setTotalDebit([...totalDebit, newObj]);
         // console.log({ debitAmount, description, totalDebit });
 
         debitData.push(newObj);
+
+        setDescription("");
+        setDebitAmount("");
     };
 
     const isFirstRender = useRef(true);
