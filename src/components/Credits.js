@@ -34,7 +34,7 @@ const Credits = ({ creditData, accountBalance, setState }) => {
         const newObj = {
             id: uuidv1(),
             description: description,
-            amount: creditAmount,
+            amount: Math.round(( Number(creditAmount) + Number.EPSILON) * 100 ) / 100,
             date: moment(new Date()).format("YYYY-MM-DD"),
         };
         setTotalCredit([...totalCredit, newObj]);
@@ -69,6 +69,7 @@ const Credits = ({ creditData, accountBalance, setState }) => {
                         required="required"
                         type="description"
                         name="description"
+                        placeholder="Enter a description"
                         value={description}
                         onChange={(event) => setDescription(event.target.value)}
                     />
